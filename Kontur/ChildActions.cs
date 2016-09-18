@@ -8,7 +8,7 @@ namespace Kontur
     {
         public static List<string> UnlovedChildren(this Dictionary<int, string> childNames, ICollection<Tuple<int, int>> relationships)
         {
-            var unlovedIds = childNames.Select(x => x.Key).Except(relationships.Select(x => x.Item2));
+            var unlovedIds = childNames.Select(x => x.Key).Except(relationships.Select(x => x.Item2)).ToList();
 
             return unlovedIds.Select(id => childNames[id]).ToList();
         }
@@ -45,7 +45,7 @@ namespace Kontur
 
         public static List<string> LovePopularChildren(this Dictionary<int, string> childNames, ICollection<Tuple<int, int>> relationships)
         {
-            var whoLovedIds = relationships.Select(x => x.Item1).Distinct();
+            var whoLovedIds = relationships.Select(x => x.Item1).Distinct().ToList();
             var maxForEachChild = new Dictionary<int, int>();
             foreach (var id in whoLovedIds)
             {
